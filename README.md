@@ -76,37 +76,37 @@ python3 work.py
         * 如果有**满分代理**就随机返回满分代理
         * 如果没有**满分代理**就返回可用但不稳定的代理
         * 不然就随机返回一个爬取到的尚未测试通过的代理
-        * content-type: "text/plain"
+        * Content-Type: "text/plain"
         * 格式: ip:port
     - /random_best.json
         * 如果有**满分代理**就随机返回满分代理及分数
         * 如果没有**满分代理**就返回可用但不稳定的代理及分数
         * 不然就随机返回一个爬取到的尚未测试通过的代理及分数
-        * content-type: "application/json"
+        * Content-Type: "application/json"
         * 格式: {"ip:port": score} 
     - /count
         * 代理总数
-        * content-type: "text/plain"
+        * Content-Type: "text/plain"
         * 格式: 数字
     - /count_lucky
         * 可用但是不稳定的代理数量
-        * content-type: "text/plain"
+        * Content-Type: "text/plain"
         * 格式: 数字
     - /count_vip
         * 非常稳定的代理数量
-        * content-type: "text/plain"
+        * Content-Type: "text/plain"
         * 格式: 数字
     - /all.json
         * 所有的代理及分数
-        * content-type: "application/json"
+        * Content-Type: "application/json"
         * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
     - /all_lucky.json
         * 可用但是不稳定的代理及分数
-        * content-type: "application/json"
+        * Content-Type: "application/json"
         * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
     - /all_vip.json
         * 非常稳定的代理及分数
-        * content-type: "application/json"
+        * Content-Type: "application/json"
         * 格式: {"ip_a:port_a": MAX_SCORE, "ip_b:port_b": MAX_SCORE, ...}
  + 可以在业务代码中根据代理的分数酌情优化相关逻辑       
  

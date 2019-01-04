@@ -110,9 +110,10 @@ class SsdbClient(object):
         '''
         # mixed = self.rds.zrangebyscore('universal_http_proxy', startscore, MAX_SCORE, withscores=True, score_cast_func=float)
         mixed = self.c.zscan('universal_http_proxy', '', startscore, MAX_SCORE, POOL_UPPER_THRESHOLD)
-        print(mixed, '120-120')
         proxies = self.to_proxies(mixed)
-        print(proxies, '79-79')
+        if not proxies:
+            print('没有获取到代理')
+            raise Exception
         proxy = choice(list(proxies.keys()))
         pair = {proxy: proxies[proxy]}
         return pair
@@ -163,7 +164,7 @@ class SsdbClient(object):
         """
         mixed = self.c.zscan(DB_KEY, '', MIN_SCORE, MAX_SCORE, POOL_UPPER_THRESHOLD)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
     def all_lucky(self):
         """
@@ -173,7 +174,7 @@ class SsdbClient(object):
         """
         mixed = self.c.zscan(DB_KEY, '', INITIAL_SCORE+1, MAX_SCORE, POOL_UPPER_THRESHOLD)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
     def all_vip(self):
         """
@@ -182,7 +183,7 @@ class SsdbClient(object):
         """
         mixed = self.c.zscan(DB_KEY, '', MAX_SCORE, MAX_SCORE, POOL_UPPER_THRESHOLD)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
 
 if __name__ == '__main__':

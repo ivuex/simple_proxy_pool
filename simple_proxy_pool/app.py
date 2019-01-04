@@ -1,4 +1,5 @@
-from flask import Flask, g
+import json
+from flask import Flask, g, Response, make_response, jsonify
 from .setting import DB_TYPE, DB_KEY
 from simple_proxy_pool.db.rds import RedisClient
 from simple_proxy_pool.db.ssdb import SsdbClient
@@ -17,6 +18,13 @@ def get_conn():
             g.conn = RedisClient()
     return g.conn
 
+# def prepair_response(dict):
+    # resp = make_response(jsonify(dict), 200)
+    # resp.headers['Content-Type'] = 'application/json'
+    # return Response(json.dumps(dict), content_type='application/json')
+    # return resp
+
+
 
 @app.route('/')
 def index():
@@ -26,13 +34,16 @@ def index():
 
 
 @app.route('/random_best.json') # 附带分值
-def random_pair():
+def random_best_json():
     """
     Get a proxy
     :return: json 附带分值
     """
     conn = get_conn()
-    return conn.random_best_json()
+    dict = conn.random_best_json()
+    return Response(
+        json.dumps(dict),
+        content_type='application/json')
 
 
 @app.route('/random_best')
@@ -82,7 +93,9 @@ def all():
     :return: json 代理池总量
     """
     conn = get_conn()
-    return str(conn.all())
+    return Response(
+        json.dumps(conn.all()),
+        content_type='application/json')
 
 
 @app.route('/all_lucky.json')
@@ -92,7 +105,9 @@ def all_lucky():
     :return: json 代理池中能用（分数为INITIAL_SCORE+1到MAX_SCORE）但不稳定的代理
     """
     conn = get_conn()
-    return str(conn.all_lucky())
+    return Response(
+        json.dumps(conn.all_lucky()),
+        content_type='application/json')
 
 
 @app.route('/all_vip.json')
@@ -102,7 +117,9 @@ def all_vip():
     :return: json 代理池中质量最高 (分数为MAX_SCORE) 的代理总数
     """
     conn = get_conn()
-    return str(conn.all_vip())
+    return Response(
+        json.dumps(conn.all_vip()),
+        content_type='application/json')
 
 
 if __name__ == '__main__':

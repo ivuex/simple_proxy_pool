@@ -111,7 +111,9 @@ class RedisClient(object):
         '''
         mixed = self.rds.zrangebyscore('universal_http_proxy', startscore, MAX_SCORE, withscores=True, score_cast_func=float)
         proxies = self.to_proxies(mixed)
-        print(proxies, '79-79')
+        if not proxies:
+            print('没有获取到代理')
+            raise Exception
         proxy = choice(list(proxies.keys()))
         pair = {proxy: proxies[proxy]}
         return pair
@@ -136,8 +138,8 @@ class RedisClient(object):
     def random_best_json(self):
         pair = self.get_best_random_pair()
         if pair:
-            print(str(pair))
-            return str(pair)
+            print(pair)
+            return pair
         else:
             print('没有获取到pair')
 
@@ -162,7 +164,7 @@ class RedisClient(object):
         """
         mixed = self.rds.zrangebyscore('universal_http_proxy', MIN_SCORE, MAX_SCORE, withscores=True, score_cast_func=float)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
     def all_lucky(self):
         """
@@ -172,7 +174,7 @@ class RedisClient(object):
         """
         mixed = self.rds.zrangebyscore('universal_http_proxy', MIN_SCORE+1, MAX_SCORE, withscores=True, score_cast_func=float)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
     def all_vip(self):
         """
@@ -181,7 +183,7 @@ class RedisClient(object):
         """
         mixed = self.rds.zrangebyscore('universal_http_proxy', MAX_SCORE, MAX_SCORE, withscores=True, score_cast_func=float)
         proxies = self.to_proxies(mixed)
-        return str(proxies)
+        return proxies
 
 
 if __name__ == '__main__':
