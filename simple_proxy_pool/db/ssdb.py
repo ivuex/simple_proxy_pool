@@ -1,7 +1,6 @@
 # -*- encoding:utf-8 -*-
 
 import re
-import pyssdb
 from random import choice, randint
 from simple_proxy_pool.setting import MAX_SCORE, MIN_SCORE, INITIAL_SCORE, DB_KEY, POOL_UPPER_THRESHOLD
 
@@ -9,6 +8,7 @@ from simple_proxy_pool.setting import MAX_SCORE, MIN_SCORE, INITIAL_SCORE, DB_KE
 class SsdbClient(object):
 
     def __init__(self):
+        import pyssdb
         self.c = pyssdb.Client()
         self.proxy_reg = re.compile(r'\d+\.\d+\.\d+\.\d+')
 

@@ -1,4 +1,3 @@
-import redis
 from simple_proxy_pool.setting import REDIS_HOST, REDIS_PORT, REDIS_PASSWORD
 from simple_proxy_pool.setting import MAX_SCORE, MIN_SCORE, INITIAL_SCORE, DB_KEY
 from random import choice, randint
@@ -14,6 +13,7 @@ class RedisClient(object):
         :param port: Redis 端口
         :param password: Redis密码
         """
+        import redis
         self.rds = redis.StrictRedis(host=host, port=port, password=password, decode_responses=True)
     
     def add(self, proxy, score=INITIAL_SCORE):
