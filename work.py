@@ -1,3 +1,5 @@
+# -*- encoding:utf-8 -*-
+
 from simple_proxy_pool.scheduler import Scheduler
 import sys
 import io

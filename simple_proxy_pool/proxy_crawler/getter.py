@@ -1,3 +1,5 @@
+# -*- encoding:utf-8 -*-
+
 from simple_proxy_pool.db.rds import RedisClient
 from simple_proxy_pool.db.ssdb import SsdbClient
 from simple_proxy_pool.proxy_crawler.crawler import Crawler

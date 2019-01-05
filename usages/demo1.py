@@ -1,3 +1,5 @@
+# -*- encoding:utf-8 -*-
+
 import requests
 from simple_proxy_pool.setting import TEST_URL
 

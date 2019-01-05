@@ -1,3 +1,5 @@
+# -*- encoding:utf-8 -*-
+
 import json
 from flask import Flask, g, Response, make_response, jsonify
 from .setting import DB_TYPE, DB_KEY
