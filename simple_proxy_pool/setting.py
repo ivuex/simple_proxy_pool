@@ -37,7 +37,7 @@ TEST_URL = 'https://www.baidu.com'
 
 # API配置
 API_HOST = '0.0.0.0'
-API_PORT = 5555
+API_PORT = 55555
 
 # 最大批测试量
 BATCH_TEST_SIZE = 10

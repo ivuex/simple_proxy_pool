@@ -3,6 +3,10 @@
 import re
 import requests
 from requests.exceptions import ConnectionError
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 def get_page(url, options={}):
     """
@@ -50,11 +54,17 @@ class Crawler(object, metaclass=ProxyMetaclass):
 
 
     def crawl_premproxy(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(chrome_options=options)
         for i in ['China-01','China-02','China-03','China-04','Taiwan-01']:
             start_url = 'https://premproxy.com/proxy-by-country/{}.htm'.format(i)
-            html = get_page(start_url)
+            driver.get(start_url)
+            wait = WebDriverWait(driver, 40)
+            wait.until(EC.text_to_be_present_in_element((By.XPATH, '/html[1]/body[1]/div[3]/div[1]/table[1]/tbody[1]/tr/td[1]'), 'script>:'))
+            html = driver.page_source
             if html:
-                ip_address = re.compile('<td data-label="IP:port ">(.*?)</td>') 
+                ip_address = re.compile('<td data-label="IP:port ">(.*?)</td>')
                 re_ip_address = ip_address.findall(html)
                 for address_port in re_ip_address:
                     yield address_port.replace(' ','')

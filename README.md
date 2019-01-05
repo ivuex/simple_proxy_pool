@@ -122,7 +122,7 @@ import requests
 dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, dir)
 
-PROXY_POOL_URL = 'http://127.0.0.1:5555/random_best'
+PROXY_POOL_URL = 'http://127.0.0.1:55555/random_best'
 '''
 /simple_proxy_pool/simple_proxy_pool/setting里设置的跟这个一样会比较有有效
 比如目标网站封IP封掉一些代理的情况

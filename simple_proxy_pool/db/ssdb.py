@@ -9,7 +9,7 @@ class SsdbClient(object):
 
     def __init__(self):
         import pyssdb
-        self.c = pyssdb.Client()
+        self.c = pyssdb.Client(host='127.0.0.1', port=4478)
         self.proxy_reg = re.compile(r'\d+\.\d+\.\d+\.\d+')
 
     def add(self, proxy, score=INITIAL_SCORE):
