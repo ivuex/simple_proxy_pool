@@ -190,8 +190,8 @@ if __name__ == '__main__':
     - 核心思路就是让/simple_proxy_pool/simple_proxy_pool/tester.py里与品质相关的的配置(可以自己扩展)与真实的请求要求接近
     - 比如:
         * 设置TEST_URL = 'https://www.baidu.com'，过一段时间后，如果再用/random_best里的代理请求http://httpbin.org/get，
-          那么，代理质量就会大降，我这里基本是70%左右的通过率。而将数据转移后设置TEST_URL = 'http://httpbin.org/get',过一段时间后再用/random_best里的代理请求http://httpbin.org/get,
-          那么，代理质量就很高，基本97%以上都是ok的
+          那么，代理质量就会大降，测试基本是70%左右的通过率。而将数据转移后设置TEST_URL = 'http://httpbin.org/get',过一段时间后再用/random_best里的代理请求http://httpbin.org/get,
+          那么，代理质量就很高，基本97%以上都是OK的
         * 设置CONNECT_TIMEOUT = 15，那么自然会有13秒，14秒的代理获得满分,而成为/random_best的返回备选代理，如果最终的使用要求是10秒的话，
           那么，这13秒，14秒的代理就是低质量的了. 而假如设置CONNECT_TIMEOUT = 6, 那么8秒，9秒，10秒的代理就不能进入/random_best的池子,
           那么，代理池的代理数量自然会响应减少（当然了，多在<a href="#amount">该代理的容量为多少</a>里下功夫，还是可以弥补的，这样响应就很快了, 这可以算是种权衡.）
