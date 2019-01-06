@@ -178,13 +178,29 @@ if __name__ == '__main__':
         * 我没有写centos的headless chrome脚本，用centos的事后再写
  + 问: 不想自己建，能不能只是用 <a name="example">http://spiders.zhouyu.wiki:55555/random_best</a> ?
    答:
-    -  <a href="#example">单机，入门配置，勿压，谢谢</a>
- + 问: 该代理的容量为多少
+    -  <a name="example">单机，入门配置，勿压，谢谢</a>
+ + 问: <a href="#amount">该代理的容量为多少</a>
    答: 
     - 这取决于/Users/apple/PycharmProjects/simple_proxy_pool/simple_proxy_pool/proxy_crawler/crawler.py能爬到多少代理，需求量大就多写点
  + 问: 该代理的能有怎样的质量?
    答:
     - 参考 <a name="api">api接口</a> 一节   
+ + 问: 如何通过调整参数来实现对目标数据源的爬取效率?
+   答:
+    - 核心思路就是让/simple_proxy_pool/simple_proxy_pool/tester.py里与品质相关的的配置(可以自己扩展)与真实的请求要求接近
+    - 比如:
+        * 设置TEST_URL = 'https://www.baidu.com'，过一段时间后，如果再用/random_best里的代理请求http://httpbin.org/get，
+          那么，代理质量就会大降，我这里基本是70%左右的通过率。而将数据转移后设置TEST_URL = 'http://httpbin.org/get',过一段时间后再用/random_best里的代理请求http://httpbin.org/get,
+          那么，代理质量就很高，基本97%以上都是ok的
+        * 设置CONNECT_TIMEOUT = 15，那么自然会有13秒，14秒的代理获得满分,而成为/random_best的返回备选代理，如果最终的使用要求是10秒的话，
+          那么，这13秒，14秒的代理就是低质量的了. 而假如设置CONNECT_TIMEOUT = 6, 那么8秒，9秒，10秒的代理就不能进入/random_best的池子,
+          那么，代理池的代理数量自然会响应减少（当然了，多在<a href="#amount">该代理的容量为多少</a>里下功夫，还是可以弥补的，这样响应就很快了, 这可以算是种权衡.）
+          
+   
     
 # ENJOY IT
+
+#### PS：笔者正在找做爬虫的工作，欢迎联系
+ + 电话: 17812150567
+ + 简历: [爬虫工程师简历.docx](http://spiders.zhouyu.wiki:3000/%E7%88%AC%E8%99%AB%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%AE%80%E5%8E%86.docx)
 
