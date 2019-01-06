@@ -122,7 +122,7 @@ python3 work.py
     
 ###### 命令行测试    
 ```
-curl http://``
+curl http://httpbin.org/get -x `curl http://spiders.zhouyu.wiki:55555/random_best` --connect-timeout 10
 ```
  
 ###### 使用代理的demo 
