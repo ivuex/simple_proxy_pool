@@ -1,7 +1,7 @@
 ## 项目地址
  + https://github.com/ivuex/simple_proxy_pool.git
 
- + <a href="#api">api接口</a>
+ + <a name="api">api接口</a>
     - /random_best 
         * 如果有**满分代理**就随机返回满分代理
         * 如果没有**满分代理**就返回可用但不稳定的代理
@@ -40,7 +40,7 @@
         * 格式: {"ip_a:port_a": MAX_SCORE, "ip_b:port_b": MAX_SCORE, ...}
  + 可以在业务代码中根据代理的分数酌情优化相关逻辑    
  
- + <a href="#example">已运行的案例 （单机，入门配置，勿压，谢谢）</a>
+ + <a name="example">已运行的案例 （单机，入门配置，勿压，谢谢）</a>
     http://spiders.zhouyu.wiki:55555/random_best
 
 ###### 关于http代理池
@@ -176,15 +176,15 @@ if __name__ == '__main__':
     - 不难，只要按本文步骤来就行
     - 问: 没有centos的headless chrome脚本吗，啥时候能写一个不?
         * 我没有写centos的headless chrome脚本，用centos的事后再写
- + 问: 不想自己建，能不能只是用 <a name="example">http://spiders.zhouyu.wiki:55555/random_best</a> ?
+ + 问: 不想自己建，能不能只是用 <a href="#example">http://spiders.zhouyu.wiki:55555/random_best</a> ?
    答:
-    -  <a name="example">单机，入门配置，勿压，谢谢</a>
- + 问: <a href="#amount">该代理的容量为多少</a>
+    -  <a name="#example">单机，入门配置，勿压，谢谢</a>
+ + 问: <a href="amount">该代理的容量为多少</a>
    答: 
     - 这取决于/Users/apple/PycharmProjects/simple_proxy_pool/simple_proxy_pool/proxy_crawler/crawler.py能爬到多少代理，需求量大就多写点
  + 问: 该代理的能有怎样的质量?
    答:
-    - 参考 <a name="api">api接口</a> 一节   
+    - 参考 <a href="#api">api接口</a> 一节   
  + 问: 如何通过调整参数来实现对目标数据源的爬取效率?
    答:
     - 核心思路就是让/simple_proxy_pool/simple_proxy_pool/tester.py里与品质相关的的配置(可以自己扩展)与真实的请求要求接近
