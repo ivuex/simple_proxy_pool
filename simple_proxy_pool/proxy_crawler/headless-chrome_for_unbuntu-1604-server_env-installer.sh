@@ -1,4 +1,6 @@
 #! /bin/bash
+
+# 参考文献
 # https://developers.supportbee.com/blog/setting-up-cucumber-to-run-with-Chrome-on-Linux/
 # https://gist.github.com/curtismcmullan/7be1a8c1c841a9d8db2c
 # http://stackoverflow.com/questions/10792403/how-do-i-get-chrome-working-with-selenium-using-php-webdriver
@@ -7,15 +9,16 @@
 # http://askubuntu.com/questions/760085/how-do-you-install-google-chrome-on-ubuntu-16-04
 
 # Versions
-CHROME_DRIVER_VERSION=2.44
 # SELENIUM_STANDALONE_VERSION=71.0.3578.80
-SELENIUM_SUBDIR=
 
-# Remove existing downloads and binaries so we can start from scratch.
+# Install google-chrome-stable
 sudo apt-get remove -y google-chrome-stable
 
+# Remove existing downloads and binaries so we can start from scratch.
 rm ~/selenium-server-standalone-*.jar
-sudo rm /usr/local/bin/selenium-server-standalone.jar
+if [ -f /usr/local/bin/selenium-server-standalone.jar ];then
+    rm /usr/local/bin/selenium-server-standalone.jar
+fi
 
 chromedriver_linux64_url=http://chromedriver.storage.googleapis.com/2.44/chromedriver_linux64.zip
 chromedriver_linux64=chromedriver_linux64.zip
@@ -56,18 +59,9 @@ sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-k
 sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 sudo apt-get -y update
 sudo apt-get -y install google-chrome-stable
-# curl -L -O http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_71.0.3578.80-0ubuntu0.16.10.1_amd64.deb
-# chromium_browser=chromium-browser_71.0.3578.80-0ubuntu0.16.04.1_amd64.deb
-# curl -L -o ~/${chromium_browser} http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/${chromium_browser}
-# apt install -y ~/${chromium_browser}
-# rm ~/${chromium_browser}
 
-# Install ChromeDriver.
-
-# wget -N http://chromedriver.storage.googleapis.com/${SELENIUM_STANDALONE_VERSION}/chromedriver_linux64.zip -P ~/
-
-# Install Selenium.
-# wget -N  http://selenium-release.storage.googleapis.com/71.0.3578.80/selenium-server-standalone-2.45.jar -P ~/
+# Install selenium-server-standalone.jar
+CHROME_DRIVER_VERSION=2.44
 wget -N  http://selenium-release.storage.googleapis.com/${CHROME_DRIVER_VERSION}/selenium-server-standalone-${CHROME_DRIVER_VERSION}.0.jar -P ~/
 sudo mv -f ~/selenium-server-standalone-${CHROME_DRIVER_VERSION}.0.jar /usr/local/bin/selenium-server-standalone.jar
 sudo chown root:root /usr/local/bin/selenium-server-standalone.jar
