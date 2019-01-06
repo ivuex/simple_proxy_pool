@@ -18,7 +18,7 @@ def get_proxy():
     try:
         response = requests.get(PROXY_POOL_URL)
         if response.status_code == 200:
-            return response.text
+            return response.text.strip()
     except ConnectionError:
         return None
 

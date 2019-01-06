@@ -34,7 +34,7 @@ class Tester(object):
                     proxy = proxy.decode('utf-8')
                 real_proxy = 'http://' + proxy
                 print('正在测试', proxy)
-                async with session.get(TEST_URL, proxy=real_proxy, timeout=15, allow_redirects=False) as response:
+                async with session.get(TEST_URL, proxy=real_proxy, timeout=CONNECT_TIMEOUT, allow_redirects=False) as response:
                     if response.status in VALID_STATUS_CODES:
                         self.conn.max(proxy)
                         print('代理可用', proxy, '已将分数设为', MAX_SCORE)

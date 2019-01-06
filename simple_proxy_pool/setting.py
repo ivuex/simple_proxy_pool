@@ -34,10 +34,11 @@ FETCH_DURATION_SECONDS = 300
 
 DB_KEY = 'universal_http_proxy'
 TEST_URL = 'https://www.baidu.com'
+CONNECT_TIMEOUT = 10
+
+# 最大批测试量
+BATCH_TEST_SIZE = 10
 
 # API配置
 API_HOST = '0.0.0.0'
 API_PORT = 55555
-
-# 最大批测试量
-BATCH_TEST_SIZE = 10

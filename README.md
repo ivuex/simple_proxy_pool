@@ -1,5 +1,47 @@
-## 项目
- + 
+## 项目地址
+ + https://github.com/ivuex/simple_proxy_pool.git
+
+ + <a href="#api">api接口</a>
+    - /random_best 
+        * 如果有**满分代理**就随机返回满分代理
+        * 如果没有**满分代理**就返回可用但不稳定的代理
+        * 不然就随机返回一个爬取到的尚未测试通过的代理
+        * Content-Type: "text/plain"
+        * 格式: ip:port
+    - /random_best.json
+        * 如果有**满分代理**就随机返回满分代理及分数
+        * 如果没有**满分代理**就返回可用但不稳定的代理及分数
+        * 不然就随机返回一个爬取到的尚未测试通过的代理及分数
+        * Content-Type: "application/json"
+        * 格式: {"ip:port": score} 
+    - /count
+        * 代理总数
+        * Content-Type: "text/plain"
+        * 格式: 数字
+    - /count_lucky
+        * 可用但是不稳定的代理数量
+        * Content-Type: "text/plain"
+        * 格式: 数字
+    - /count_vip
+        * 非常稳定的代理数量
+        * Content-Type: "text/plain"
+        * 格式: 数字
+    - /all.json
+        * 所有的代理及分数
+        * Content-Type: "application/json"
+        * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
+    - /all_lucky.json
+        * 可用但是不稳定的代理及分数
+        * Content-Type: "application/json"
+        * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
+    - /all_vip.json
+        * 非常稳定的代理及分数
+        * Content-Type: "application/json"
+        * 格式: {"ip_a:port_a": MAX_SCORE, "ip_b:port_b": MAX_SCORE, ...}
+ + 可以在业务代码中根据代理的分数酌情优化相关逻辑    
+ 
+ + <a href="#example">已运行的案例 （单机，入门配置，勿压，谢谢）</a>
+    http://spiders.zhouyu.wiki:55555/random_best
 
 ###### 关于http代理池
  + 在反反爬策略中，使用http代理(俗称换ip)是一个效果较好的方案
@@ -76,45 +118,12 @@ DB_TYPE = 'ssdb'
 # 在项目根目录中
 python3 work.py
 ``` 
-
- + api接口
-    - /random_best 
-        * 如果有**满分代理**就随机返回满分代理
-        * 如果没有**满分代理**就返回可用但不稳定的代理
-        * 不然就随机返回一个爬取到的尚未测试通过的代理
-        * Content-Type: "text/plain"
-        * 格式: ip:port
-    - /random_best.json
-        * 如果有**满分代理**就随机返回满分代理及分数
-        * 如果没有**满分代理**就返回可用但不稳定的代理及分数
-        * 不然就随机返回一个爬取到的尚未测试通过的代理及分数
-        * Content-Type: "application/json"
-        * 格式: {"ip:port": score} 
-    - /count
-        * 代理总数
-        * Content-Type: "text/plain"
-        * 格式: 数字
-    - /count_lucky
-        * 可用但是不稳定的代理数量
-        * Content-Type: "text/plain"
-        * 格式: 数字
-    - /count_vip
-        * 非常稳定的代理数量
-        * Content-Type: "text/plain"
-        * 格式: 数字
-    - /all.json
-        * 所有的代理及分数
-        * Content-Type: "application/json"
-        * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
-    - /all_lucky.json
-        * 可用但是不稳定的代理及分数
-        * Content-Type: "application/json"
-        * 格式: {"ip_a:port_a": score_a, "ip_b:port_b": score_b, ...}
-    - /all_vip.json
-        * 非常稳定的代理及分数
-        * Content-Type: "application/json"
-        * 格式: {"ip_a:port_a": MAX_SCORE, "ip_b:port_b": MAX_SCORE, ...}
- + 可以在业务代码中根据代理的分数酌情优化相关逻辑       
+    - 本文开头的api现在可以访问了
+    
+###### 命令行测试    
+```
+curl http://``
+```
  
 ###### 使用代理的demo 
 ```
@@ -154,11 +163,28 @@ def crawl(url, proxy):
 
 
 def main():
-    html = crawl(TEST_URL, get_proxy())
+    html = crawl(TEST_URL, get_proxy().strip())
     print(html)
 
 if __name__ == '__main__':
     main()
 ```
 
+## 常见问答
+ + 问: 搭建是否困难
+   答：
+    - 不难，只要按本文步骤来就行
+    - 问: 没有centos的headless chrome脚本吗，啥时候能写一个不?
+        * 我没有写centos的headless chrome脚本，用centos的事后再写
+ + 问: 不想自己建，能不能只是用 <a name="example">http://spiders.zhouyu.wiki:55555/random_best</a> ?
+   答:
+    -  <a href="#example">单机，入门配置，勿压，谢谢</a>
+ + 问: 该代理的容量为多少
+   答: 
+    - 这取决于/Users/apple/PycharmProjects/simple_proxy_pool/simple_proxy_pool/proxy_crawler/crawler.py能爬到多少代理，需求量大就多写点
+ + 问: 该代理的能有怎样的质量?
+   答:
+    - 参考 <a name="api">api接口</a> 一节   
+    
 # ENJOY IT
+
