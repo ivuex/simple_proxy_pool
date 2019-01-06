@@ -8,6 +8,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+from pyvirtualdisplay import Display
+display = Display(visible=0, size=(800, 800))  
+display.start()
+
+chrome_options = webdriver.ChromeOptions() 
+chrome_options.add_argument('--headless') 
+chrome_options.add_argument('--no-sandbox') 
+chrome_options.add_argument('--disable-dev-shm-usage') 
+driver_path = '/usr/local/bin/chromedriver'
+driver = webdriver.Chrome(driver_path, options=chrome_options)
+
 def get_page(url, options={}):
     """
     抓取代理
@@ -54,19 +65,20 @@ class Crawler(object, metaclass=ProxyMetaclass):
 
 
     def crawl_premproxy(self):
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        driver = webdriver.Chrome(chrome_options=options)
         for i in ['China-01','China-02','China-03','China-04','Taiwan-01']:
             start_url = 'https://premproxy.com/proxy-by-country/{}.htm'.format(i)
             driver.get(start_url)
-            wait = WebDriverWait(driver, 40)
-            wait.until(EC.text_to_be_present_in_element((By.XPATH, '/html[1]/body[1]/div[3]/div[1]/table[1]/tbody[1]/tr/td[1]'), 'script>:'))
+            # wait = WebDriverWait(driver, 60)
+            # wait.until(EC.text_to_be_present_in_element((By.XPATH, '/html[1]/body[1]/div[3]/div[1]/table[1]/tbody[1]/tr/td[1]'), 'script>:'))
+            import asyncio
+            asyncio.sleep(8)
             html = driver.page_source
             if html:
                 ip_address = re.compile('<td data-label="IP:port ">(.*?)</td>')
                 re_ip_address = ip_address.findall(html)
                 for address_port in re_ip_address:
+                    address_port = re.sub('<script[^<]*>[^<]*</script>', '', address_port)
+                    address_port = re.sub('<span[^<]*>[^<]*</span>', '', address_port)
                     yield address_port.replace(' ','')
 
     def crawl_xroxy(self):

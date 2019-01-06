@@ -41,6 +41,12 @@
         * 删除代理
         * 修改代理的score值
 ###### 环境搭建
+ + 如果是在服务器端，需要使用chrome headless
+    - phantomjs将被逐渐遗弃
+    - 我为ubuntu16.04编写的chrome headless环境自动配置脚本路径为: /simple_proxy_pool/proxy_crawler/headless-chrome_for_unbuntu-1604-server_env-installer.sh
+        * 使用方法: sudo bash ./simple_proxy_pool/proxy_crawler/headless-chrome_for_unbuntu-1604-server_env-installer.sh
+        * 或者: sudo /simple_proxy_pool/proxy_crawler/headless-chrome_for_unbuntu-1604-server_env-installer.sh        
+        * 如果不是ubuntu可以参考，但必然不同.
  + 安装 Python >= 3.5
  + 安装 python 依赖模块
 ```
