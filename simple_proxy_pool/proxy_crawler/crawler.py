@@ -73,7 +73,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
             import asyncio
             asyncio.sleep(8)
             html = driver.page_source
-            driver.quit()
             if html:
                 ip_address = re.compile('<td data-label="IP:port ">(.*?)</td>')
                 re_ip_address = ip_address.findall(html)
