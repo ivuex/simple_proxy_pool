@@ -102,8 +102,8 @@ pip3 install -r requirements.txt
  + 数据库        
     - 默认使用ssdb
         * 使用硬盘储存，基于leveldb，存取速度依然很快，号称redis（内存储存）的替代品
-        * NoSql，不占用端口
         * 适合同一主机跑比较多的服务
+        * NoSql
     - 兼容了redis    
         * 因为redis群众基础好啊
     - 配置方式
